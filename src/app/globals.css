@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------------------
+   Code Zero Labs — design system
+   Dark, premium aesthetic: charcoal canvas, gold accent, Jost display + Roboto.
+   A single brand; each product route overrides --accent for differentiation.
+---------------------------------------------------------------------------- */
+
+:root {
+  /* Core brand palette */
+  --ink: #202123; /* page canvas */
+  --ink-2: #2f3034; /* raised panels */
+  --ink-3: #3f444d; /* borders / hairlines */
+  --mist: #c1c3c9; /* body text */
+  --muted: #81848e; /* secondary text */
+  --white: #fefefe;
+
+  /* Accent (overridden per product) */
+  --accent: #cf8516;
+  --accent-soft: #895e1b;
+  --accent-contrast: #202123;
+}
+
+[data-theme="chauffeur"] {
+  --accent: #cf8516; /* gold */
+  --accent-soft: #895e1b;
+  --accent-contrast: #202123;
+}
+
+[data-theme="clinic"] {
+  --accent: #36b6a6; /* calm teal */
+  --accent-soft: #1f5f59;
+  --accent-contrast: #06201d;
+}
+
+[data-theme="gym"] {
+  --accent: #c6f24e; /* electric lime */
+  --accent-soft: #6c8a1f;
+  --accent-contrast: #14210a;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-mist: var(--mist);
+  --color-muted: var(--muted);
+  --color-white: var(--white);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-contrast: var(--accent-contrast);
+
+  --font-display: var(--font-display), "Jost", sans-serif;
+  --font-body: var(--font-body), "Roboto", sans-serif;
+
+  /* Type scale lifted from the reference design language */
+  --text-eyebrow: 0.8125rem; /* 13px */
+  --text-small: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lead: 1.3125rem; /* 21px */
+  --text-h4: 1.5rem; /* 24px */
+  --text-h3: 1.75rem; /* 28px */
+  --text-h2: 2.5rem; /* 40px */
+  --text-h1: 3rem; /* 48px */
+  --text-display: 4.25rem; /* 68px hero */
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+html,
+body {
+  background: var(--ink);
+  color: var(--mist);
+  overflow-x: hidden;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+/* Display headings: Jost, tight, with subtle negative tracking */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-eyebrow);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.h-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+/* Reusable accent button */
+.btn-accent {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+}
+.btn-accent:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow: 0 14px 40px -12px var(--accent);
+}
+
+.btn-ghost {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid var(--ink-3);
+  color: var(--white);
+  transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+}
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Marquee for the logo / trust strip */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 26s linear infinite;
+}
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+}
+
+/* Soft radial glow used behind hero / sections */
+.glow {
+  background: radial-gradient(
+    60% 60% at 50% 0%,
+    color-mix(in srgb, var(--accent) 22%, transparent),
+    transparent 70%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .marquee-track {
+    animation: none;
+  }
+}
